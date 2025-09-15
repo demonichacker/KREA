@@ -1,25 +1,26 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { ModeToggle } from "@/components/mode-toggle"
-import { Search, Bell, User, Menu, Home, Zap, ImageIcon, Users } from "lucide-react"
+import { Home, FolderOpen, Video, Edit3, Check, Type, Archive, Bell, Settings, User, ChevronDown, Sun, Moon, Menu, X } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 import Image from "next/image"
 
 export function Navigation() {
-  const { theme } = useTheme()
+  const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-300">
-      <div className="container flex h-14 max-w-screen-2xl items-center">
-        <div className="mr-4 hidden md:flex">
-          <a className="mr-6 flex items-center space-x-2 transition-all duration-300" href="/">
+    <nav className="sticky top-0 z-50 w-full bg-background border-b border-border/20 transition-all duration-300">
+      <div className="flex h-12 w-full max-w-screen-2xl mx-auto items-center justify-between px-2 sm:px-4">
+        {/* Left section - Logo and user */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2">
             {mounted && (
               <div className="relative h-6 w-6 transition-all duration-300">
                 <Image
@@ -31,58 +32,243 @@ export function Navigation() {
                 />
               </div>
             )}
-            {!mounted && <div className="h-6 w-6 rounded bg-primary animate-pulse" />}
-            <span className="hidden font-bold sm:inline-block transition-colors duration-300">Krea AI</span>
-          </a>
-          <nav className="flex items-center gap-6 text-sm">
-            <a className="transition-colors duration-300 hover:text-foreground/80 text-foreground/60" href="/">
-              <Home className="h-4 w-4 transition-all duration-300" />
-            </a>
-            <a className="transition-colors duration-300 hover:text-foreground/80 text-foreground/60" href="/models">
-              <Zap className="h-4 w-4 transition-all duration-300" />
-            </a>
-            <a className="transition-colors duration-300 hover:text-foreground/80 text-foreground/60" href="/gallery">
-              <ImageIcon className="h-4 w-4 transition-all duration-300" />
-            </a>
-            <a className="transition-colors duration-300 hover:text-foreground/80 text-foreground/60" href="/community">
-              <Users className="h-4 w-4 transition-all duration-300" />
-            </a>
-          </nav>
-        </div>
-        <Button
-          variant="ghost"
-          className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden transition-all duration-300"
-        >
-          <Menu className="h-5 w-5 transition-all duration-300" />
-          <span className="sr-only">Toggle Menu</span>
-        </Button>
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-            <Button
-              variant="outline"
-              className="relative h-8 w-full justify-start rounded-[0.5rem] bg-background text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-40 lg:w-64 transition-all duration-300 hover:bg-accent/50"
-            >
-              <Search className="mr-2 h-4 w-4 transition-all duration-300" />
-              <span className="hidden lg:inline-flex">Search models...</span>
-              <span className="inline-flex lg:hidden">Search...</span>
-              <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex transition-all duration-300">
-                <span className="text-xs">⌘</span>K
-              </kbd>
-            </Button>
+            {!mounted && <div className="h-6 w-6 rounded-full bg-primary/20 animate-pulse" />}
           </div>
-          <nav className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="h-8 w-8 transition-all duration-300 hover:bg-accent/50">
-              <Bell className="h-4 w-4 transition-all duration-300" />
-              <span className="sr-only">Notifications</span>
-            </Button>
-            <Button variant="ghost" size="icon" className="h-8 w-8 transition-all duration-300 hover:bg-accent/50">
-              <User className="h-4 w-4 transition-all duration-300" />
-              <span className="sr-only">User menu</span>
-            </Button>
-            <ModeToggle />
-          </nav>
+
+          <Button
+            variant="ghost"
+            className="hidden sm:flex h-8 px-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+          >
+            <span>benevolentartbebop</span>
+            <ChevronDown className="ml-1 h-3 w-3 transition-transform duration-200" />
+          </Button>
+        </div>
+
+        {/* Center section - Tool icons (hidden on mobile) */}
+        <div className="hidden lg:flex items-center gap-1 p-2 rounded-xl border border-transparent hover:border-border/40 hover:bg-accent/60 hover:shadow-lg hover:shadow-accent/20 transition-all duration-300 group">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground group-hover:bg-accent/50 hover:bg-accent/70 transition-all duration-200"
+          >
+            <Home className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground group-hover:bg-accent/50 hover:bg-accent/70 transition-all duration-200"
+          >
+            <FolderOpen className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground group-hover:bg-accent/50 hover:bg-accent/70 transition-all duration-200"
+          >
+            <Video className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground group-hover:bg-accent/50 hover:bg-accent/70 transition-all duration-200"
+          >
+            <Edit3 className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground group-hover:bg-accent/50 hover:bg-accent/70 transition-all duration-200"
+          >
+            <Check className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground group-hover:bg-accent/50 hover:bg-accent/70 transition-all duration-200"
+          >
+            <Type className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground group-hover:bg-accent/50 hover:bg-accent/70 transition-all duration-200"
+          >
+            <Archive className="h-4 w-4" />
+          </Button>
+        </div>
+
+        {/* Right section - User actions */}
+        <div className="flex items-center gap-1 sm:gap-2">
+          <Button
+            variant="ghost"
+            className="hidden md:flex h-8 px-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+          >
+            Gallery
+          </Button>
+          <Button
+            variant="ghost"
+            className="hidden md:flex h-8 px-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+          >
+            Support
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hidden sm:flex h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+          >
+            <Bell className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+          >
+            {mounted ? (
+              theme === "dark" ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )
+            ) : (
+              <div className="h-4 w-4 rounded-full bg-muted animate-pulse" />
+            )}
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hidden sm:flex h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+          >
+            <Settings className="h-4 w-4" />
+          </Button>
+          <div className="h-6 w-6 rounded-full bg-gradient-to-br from-purple-400 to-blue-500 flex items-center justify-center">
+            <User className="h-3 w-3 text-white" />
+          </div>
+          
+          {/* Mobile menu button */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200 ml-1"
+          >
+            {mobileMenuOpen ? (
+              <X className="h-4 w-4" />
+            ) : (
+              <Menu className="h-4 w-4" />
+            )}
+          </Button>
         </div>
       </div>
+
+      {/* Mobile menu dropdown */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden border-t border-border/20 bg-background/95 backdrop-blur-sm">
+          <div className="w-full max-w-screen-2xl mx-auto px-4 py-3">
+            {/* User section for mobile */}
+            <div className="sm:hidden mb-3 pb-3 border-b border-border/20">
+              <Button
+                variant="ghost"
+                className="w-full justify-start h-8 px-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+              >
+                <span>benevolentartbebop</span>
+                <ChevronDown className="ml-1 h-3 w-3 transition-transform duration-200" />
+              </Button>
+            </div>
+            
+            {/* Tool icons for mobile */}
+            <div className="grid grid-cols-4 gap-2 mb-3">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-10 flex flex-col gap-1 text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+              >
+                <Home className="h-4 w-4" />
+                <span className="text-xs">Home</span>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-10 flex flex-col gap-1 text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+              >
+                <FolderOpen className="h-4 w-4" />
+                <span className="text-xs">Files</span>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-10 flex flex-col gap-1 text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+              >
+                <Video className="h-4 w-4" />
+                <span className="text-xs">Video</span>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-10 flex flex-col gap-1 text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+              >
+                <Edit3 className="h-4 w-4" />
+                <span className="text-xs">Edit</span>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-10 flex flex-col gap-1 text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+              >
+                <Check className="h-4 w-4" />
+                <span className="text-xs">Check</span>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-10 flex flex-col gap-1 text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+              >
+                <Type className="h-4 w-4" />
+                <span className="text-xs">Type</span>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-10 flex flex-col gap-1 text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+              >
+                <Archive className="h-4 w-4" />
+                <span className="text-xs">Archive</span>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="sm:hidden h-10 flex flex-col gap-1 text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+              >
+                <Bell className="h-4 w-4" />
+                <span className="text-xs">Alerts</span>
+              </Button>
+            </div>
+            
+            {/* Additional options for mobile */}
+            <div className="space-y-1 pt-2 border-t border-border/20">
+              <Button
+                variant="ghost"
+                className="md:hidden w-full justify-start h-8 px-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+              >
+                Gallery
+              </Button>
+              <Button
+                variant="ghost"
+                className="md:hidden w-full justify-start h-8 px-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+              >
+                Support
+              </Button>
+              <Button
+                variant="ghost"
+                className="sm:hidden w-full justify-start h-8 px-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all duration-200"
+              >
+                <Settings className="mr-2 h-4 w-4" />
+                Settings
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   )
 }
